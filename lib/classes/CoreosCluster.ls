@@ -17,6 +17,7 @@ module.exports = class CoreosCluster extends Cluster
   lb_rule_options: {}
   cloud_config_template_path: ""
   tmp_dir: ""
+  ssh_publickey_file: ""
   process_template: (template, cb)->
 
   os_type: \Linux

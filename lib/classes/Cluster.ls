@@ -32,9 +32,9 @@ module.exports = class Cluster
   lb_rule_options: {}
   cloud_config_template_path: ""
   tmp_dir: ""
+  ssh_publickey_file: ""
   process_template: (template, cb)->
 
-  ssh_publickey_file:~ -> "#__dirname/../../certificates/#{@rg.name}"
   domain_name_label:~ -> "#{@rg.name}-#{@name}"
   lb_address_pool_ids:~ -> "/subscriptions/02851cd1-0e23-4d4b-a778-61db292913cb/resourceGroups/#{@rg.name}/providers/Microsoft.Network/loadbalancers/#{@lb.name}/backendAddressPools/#{@address_pool.name}"
   storage_account_name:~ -> "#{@rg.name}#{@name.replace /-/g, ""}cluster"

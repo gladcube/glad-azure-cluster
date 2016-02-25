@@ -12,6 +12,7 @@ module.exports = class FleetCluster extends CoreosCluster
   storage_account_type: ""
   vm_size: ""
   tmp_dir: ""
+  ssh_publickey_file: ""
 
   cloud_config_template_path: "#__dirname/../../cloud-config-templates/fleet-cluster.yml"
   nsg_rule_options:
