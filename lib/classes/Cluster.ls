@@ -16,6 +16,8 @@ require! \./Probe.ls
 require! \./LbRule.ls
 
 module.exports = class Cluster
+  -> @ <<< it
+
   # Interfaces
   name: ""
   size: 0
