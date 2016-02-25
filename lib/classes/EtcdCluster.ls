@@ -16,9 +16,6 @@ module.exports = class EtcdCluster extends CoreosCluster
   cloud_config_template_path: "#__dirname/../../cloud-config-templates/etcd-cluster.yml"
   name: \etcd
   size: 3
-  subnet_address_prefix: \10.10.0.0/16
-  storage_account_type: \LRS
-  vm_size: \Standard_A1
   nsg_rule_options:
     ssh:
       source_address_prefix: "'*'"
