@@ -25,3 +25,5 @@ module.exports = new class CliManager
       |> map ([key, val])-> ["--#{key |> dasherize}", val]
       |> concat
       |> (cmds ++ )
+  login: ->
+    @spawn \login
