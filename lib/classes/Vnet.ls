@@ -8,8 +8,8 @@ module.exports = class Vnet extends AzureResource
   commands:
     list: "network vnet list"
     create: "network vnet create"
-  options:
-    list:~ ->
+  options:~ ->
+    list:
       resource-group: @resource-group
     create:
       resource-group: @resource-group
