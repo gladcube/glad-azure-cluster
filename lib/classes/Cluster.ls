@@ -40,7 +40,7 @@ module.exports = class Cluster
   domain_name_label:~ -> "#{@rg.name}-#{@name}"
   lb_address_pool_ids:~ -> "/subscriptions/02851cd1-0e23-4d4b-a778-61db292913cb/resourceGroups/#{@rg.name}/providers/Microsoft.Network/loadbalancers/#{@lb.name}/backendAddressPools/#{@address_pool.name}"
   storage_account_name:~ -> "#{@rg.name}#{@name.replace /-/g, ""}cluster"
-  custom_data:~ -> "#__dirname/../../tmp/#{@name}-cluster-cloud-config.yml"
+  custom_data:~ -> "#{@tmp_dir}/#{@name}-cluster-cloud-config.yml"
   nsg:~ -> @_nsg ?= new Nsg resource-group: @rg.name, location: @rg.location, name: @name
   subnet:~ -> @_subnet ?= new Subnet resource-group: @rg.name, vnet-name: @vnet.name, name: @name, address-prefix: @subnet_address_prefix, nsg-name: @nsg.name
   public_ip:~ -> @_public_ip ?= new PublicIp resource-group: @rg.name, location: @rg.location, name: @name, domain-name-label: @domain_name_label
