@@ -17,7 +17,7 @@ module.exports = class LbRule extends AzureResource
       backend-port: @backend-port
       probe-name: @probe-name
       frontend-ip-name: @frontend-ip-name
-      backend-address-pool-name: @backend-address-pool-name
+      backend-address-pool: @backend-address-pool
 
 
 

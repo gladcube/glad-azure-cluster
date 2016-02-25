@@ -76,7 +76,7 @@ module.exports = class Cluster
       @lb_rule_options
       |> obj-to-pairs
       |> map ([name, {protocol, frontend_port, backend_port, probe_name}])~>
-        new LbRule resource-group: @rg.name, name: name, lb-name: @lb.name, protocol: protocol, frontend-port: frontend_port, backend-port: backend_port, probe-name: probe_name, frontend-ip-name: @lb_frontend_ip.name, backend-address-pool-name: @address_pool.name
+        new LbRule resource-group: @rg.name, name: name, lb-name: @lb.name, protocol: protocol, frontend-port: frontend_port, backend-port: backend_port, probe-name: probe_name, frontend-ip-name: @lb_frontend_ip.name, backend-address-pool: @address_pool.name
   azure_resources:~ ->
     [
       @nsg
