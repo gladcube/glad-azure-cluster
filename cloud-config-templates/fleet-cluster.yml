@@ -1,0 +1,25 @@
+#cloud-config
+coreos:
+  fleet:
+    public-ip: "$private_ipv4"
+    metadata: "cluster={{cluster}}"
+    etcd_servers: "http://{{etcd-cluster-dns}}.japanwest.cloudapp.azure.com:2379"
+  units:
+    - name: fleet.service
+      command: start
+    - name: fleet.socket
+      drop-ins:
+        - name: "30-ListenStream.conf"
+          content: |
+            [Socket]
+            ListenStream=$private_ipv4:49153
+    - name: flanneld.service
+      command: start
+      drop-ins:
+        - name: "50-network-config.conf"
+          content: |
+            [Service]
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "{{subnet}}" }'
+
+
+
