@@ -52,7 +52,7 @@ module.exports = class FleetCluster extends CoreosCluster
     http:
       protocol: \HTTP
       port: 80
-      path: \/health_check
+      path: \/
       interval: 5
       count: 2
     fleet:
