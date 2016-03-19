@@ -1,6 +1,6 @@
 require! \./Rg.ls
 require! \./Vnet.ls
-require! \./CoreosCluster
+require! \./CoreosCluster.ls
 
 module.exports = class FleetCluster extends CoreosCluster
   # Interfaces

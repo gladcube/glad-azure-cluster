@@ -1,8 +1,12 @@
 require! \./Rg.ls
 require! \./Vnet.ls
-require! \./FleetCluster
+require! \./FleetCluster.ls
 
 module.exports = class WebServerCluster extends FleetCluster
+  ->
+    super ...
+    @probe_options.http.path = @http_probe_path
+
   # Interfaces
   name: ""
   size: 0
@@ -13,6 +17,7 @@ module.exports = class WebServerCluster extends FleetCluster
   vm_size: ""
   tmp_dir: ""
   ssh_publickey_file: ""
+  http_probe_path: "/"
 
   nsg_rule_options:
     {}
