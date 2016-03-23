@@ -14,6 +14,7 @@ require! \./Vm.ls
 require! \./NsgRule.ls
 require! \./Probe.ls
 require! \./LbRule.ls
+require! \./Disk.ls
 
 module.exports = class Cluster
   -> @ <<< it
@@ -36,6 +37,10 @@ module.exports = class Cluster
   tmp_dir: ""
   ssh_publickey_file: ""
   process_template: (template, cb)->
+  has_disk: no
+  disk_size: 0
+  disk_caching: \None
+  disk_container_name: ""
 
   domain_name_label:~ -> "#{@rg.name}-#{@name}"
   lb_address_pool_ids:~ -> "/subscriptions/02851cd1-0e23-4d4b-a778-61db292913cb/resourceGroups/#{@rg.name}/providers/Microsoft.Network/loadbalancers/#{@lb.name}/backendAddressPools/#{@address_pool.name}"
@@ -77,6 +82,11 @@ module.exports = class Cluster
       |> obj-to-pairs
       |> map ([name, {protocol, frontend_port, backend_port, probe_name}])~>
         new LbRule resource-group: @rg.name, name: name, lb-name: @lb.name, protocol: protocol, frontend-port: frontend_port, backend-port: backend_port, probe-name: probe_name, frontend-ip-name: @lb_frontend_ip.name, backend-address-pool: @address_pool.name
+  disks:~ ->
+    @_disks ?=
+      [0 til @size]
+      |> map (index)~>
+        new Disk resource-group: @rg.name, name: "#{@name}-#index", vm-name: @vms.(index).name, size-in-gb: @disk_size, host-caching: @disk_caching, storage-account-name: @storage_account.name, storage-account-container-name: @disk_container_name, lun: 0
   azure_resources:~ ->
     [
       @nsg
@@ -92,6 +102,7 @@ module.exports = class Cluster
       @nsg_rules
       @probes
       @lb_rules
+      (if @has_disk then @disks else [])
     ] |> flatten
   create_cloud_config: (cb)->
     err, template <~ fs.read-file @cloud_config_template_path, \utf-8
